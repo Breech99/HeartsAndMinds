@@ -37,7 +37,7 @@ added:
 
 -base defenses
 
-MODS USED In this version:
+---------------------------MODS USED In this version:------------------------------------------
 
 @cba community based addons
 
@@ -55,7 +55,7 @@ MODS USED In this version:
 
 @USAF
 
-optional client side mods
+---------------------------optional client side mods:
 
 
 @athena
