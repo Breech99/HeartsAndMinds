@@ -1,7 +1,7 @@
 player createDiarySubject ["Documentation","Documentation"];
 
 player createDiaryRecord ["Documentation", ["Headless", "
-<img image='\a3\ui_f\data\map\vehicleicons\iconvirtual_ca.paa' width='20' height='20'/> This mission automatically use one Headless client when available.
+<img image='\a3\ui_f\data\map\vehicleicons\iconvirtual_ca.paa' width='20' height='20'/> This mission support one Headless client.
 	"]
 ];
 
@@ -12,7 +12,7 @@ Keep in mind that all the actions will be available, even if you do not need the
 ];
 
 player createDiaryRecord ["Documentation", ["Deafness", "
-<img image='\z\ace\addons\hearing\UI\Icon_Module_Hearing_ca.paa' width='20' height='20'/> Use the earplugs to protect your ears and avoid combat deafness.<br/>
+<img image='\z\ace\addons\hearing\UI\Icon_Module_Hearing_ca.paa' width='20' height='20'/> Use the earplugs to protext your ears and avoid combat deafness.<br/>
 You can put them on with your self interaction key.<br/><br/>
 	"]
 ];
@@ -36,7 +36,7 @@ If you don't want to complete a task, you can always abort it with the self inte
 player createDiaryRecord ["Documentation", ["FOB", "
 <img image='\A3\ui_f\data\igui\cfg\simpleTasks\types\move1_ca.paa' width='20' height='20' /> <img image='\A3\ui_f\data\igui\cfg\simpleTasks\types\run_ca.paa' width='20' height='20' /> <img image='\A3\ui_f\data\igui\cfg\simpleTasks\types\move2_ca.paa' width='20' height='20' /> <marker name='blufor_base'>FOB:</marker><br/>
  In this mission a FOB is a forward spawn point, to create a FOB approach the red box at the logistic point and require a blue container.<br/>
-- <img image='\A3\Ui_f\data\Map\Markers\NATO\b_hq.paa' width='20' height='20'/>  <marker name='blufor_base'>Deploy:</marker> <br/>
+- <img image='\A3\ui_f\data\igui\cfg\simpleTasks\types\interact_ca.paa' width='20' height='20'/>  <marker name='blufor_base'>Deploy:</marker> <br/>
 Move it where you want to deploy a new FOB and interact with it to set it up. Keep in mind that you can not deploy a FOB close to the main base (2.500m) and the terrain needs to be flat.<br/><br/>
 - <img image='\A3\ui_f\data\igui\cfg\simpleTasks\types\interact_ca.paa' width='20' height='20'/> <marker name='blufor_base'>Dismantle:</marker> <br/>
 You can dismantle a FOB by interacting with the flag on the HQ roof.
@@ -47,7 +47,7 @@ player createDiaryRecord ["Documentation", ["Sling loading", "
 =BTC= Lift will not replace the A3 sling loading, you can use both.<br/><br/>
 <img image='\A3\Structures_F_Heli\VR\Helpers\Data\VR_Symbol_Heli_Slingloading_CA.paa' width='20' height='20'/> <img image='\A3\air_f_beta\Heli_Transport_01\Data\UI\Map_Heli_Transport_01_base_CA.paa' width='20' height='20'/> Lifting an object is pretty simple. Get in a chopper as pilot, hover above the object and interact with the chopper to deploy ropes.<br/>
 When you are in the right position a new scroll wheel action will appear ('HOOK'). If you want you can open the HUD to facilitate the operation.<br/>
-<img image='\z\ace\addons\logistics_wirecutter\ui\wirecutter_ca.paa' width='20' height='20'/> To release an object open you self interaction menu and select 'CUT ROPES'.
+<img image='\z\ace\addons\logistics_wirecutter\ui\wirecutter_ca.paa' width='20' height='20'/> To release an object open you self interaction menu and select 'CUT ROPES'
 	"]
 ];
 
@@ -58,11 +58,11 @@ player createDiaryRecord ["Documentation", ["Logistic point", "
 
 player createDiaryRecord ["Documentation", ["Logistic", "
 <marker name='blufor_base'>Cargo System:</marker><br/>
-- <img image='\z\ace\addons\cargo\UI\Icon_load.paa' width='20' height='20'/> <marker name='blufor_base'>Load:</marker> You can load objects inside vehicles. Approach the object you want to load and interact with it.<br/>
+- <img image='\A3\ui_f\data\igui\cfg\simpleTasks\types\interact_ca.paa' width='20' height='20'/> <marker name='blufor_base'>Load:</marker> You can load objects inside vehicles. Approach the object you want to load and interact with it.<br/>
 Select 'LOAD IN' option.<br/>
-After that interact with the vehicle and select 'LOAD object selected' option.<br/>
+Afer that interact with the vehicle and select 'LOAD object selected' option.<br/>
 The object has to be close to the vehicle.<br/><br/>
-- <img image='\A3\ui_f\data\igui\cfg\simpleTasks\types\search_ca.paa' width='20' height='20'/> <marker name='blufor_base'>Unload:</marker> You can unload an object from a vehicle interacting with it. You can be inside the vehicle (personal interaction) or outside (object interaction).<br/>
+- <img image='\A3\ui_f\data\igui\cfg\simpleTasks\types\interact_ca.paa' width='20' height='20'/> <marker name='blufor_base'>Unload:</marker> You can unload an object from a vehicle interacting with it. You can be inside the vehicle (personal interaction) or outside (object interaction).<br/>
 Select the option 'CHECK CARGO', then choose the object you want to unload from the list, and click 'UNLOAD'.<br/>
 If you are inside a chopper the object will be paradropped with a chute. If your height is too low, the object will crash down.<br/>
 Every vehicle has a 'CARGO CAPACITY' (CC in game), and every object has a 'REQUIRED CAPACITY' value (RC in game.)<br/>
@@ -71,7 +71,6 @@ You can check those values in game with 'LOAD IN' and 'CHECK CARGO' options.<br/
 To tow a vehicle interact with it and select the option 'HOOK'.<br/>After that place the tow vehicle in front of it and select 'TOW' in the interaction menu.<br/>
 If the two vehicles are too far away or the vehicle can't tow that load, the option will be disabled.<br/>
 To unhook interact with one of the two vehicles and select the option 'UNHOOK'.<br/><br/>
-
 <marker name='blufor_base'>Place option:</marker><br/>
 With this option you can move heavy objects to build small outpost or base.<br/>
 When you select the option an hint will show all the keys required to move the object.
@@ -125,7 +124,6 @@ Your options are:<br/>
 - STOP<br/>
 - GET DOWN<br/>
 - GO AWAY<br/><br/>
-
 If you want to give an order just to one unit, interact with it (object interaction).
 	"]
 ];
