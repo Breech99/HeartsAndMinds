@@ -1,5 +1,5 @@
 # HeartsAndMinds
-1.16.2 is out !
+1.16.2 
 Hearts and Minds 2 Main Base Version
 
 Uses Main Tanoa Airport as Blufor base with safezone over base
@@ -40,15 +40,25 @@ added:
 MODS USED In this version:
 
 @cba community based addons
+
 @ace
+
 @acex
+
 @RHS afrf
+
 @RHS usf
+
 @CUP Terrain Core
+
 @MELB mission enhanced little birds
+
 @USAF
 
 optional client side mods
+
+
 @athena
+
 @advanced urban rappeling
 
