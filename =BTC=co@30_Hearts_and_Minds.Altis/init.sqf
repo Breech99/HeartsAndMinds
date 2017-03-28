@@ -1,7 +1,6 @@
 ///added lines above for JIP and intro///
 enableSaving [false,false];
 CHVD_allowNoGrass = true;
-enableSaving [false,false];
 //Server
 call compile preprocessFile "core\fnc\compile.sqf";
 
