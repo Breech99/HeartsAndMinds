@@ -1,4 +1,5 @@
 
+
 private ["_city","_pos","_radius","_hideout","_random_pos","_radius_x","_radius_y","_id","_btc_composition_hideout"];
 
 _city = objNull;

@@ -1,4 +1,5 @@
 
+
 disableSerialization;
 
 private ["_cargo","_chopper","_array","_cargo_array","_can_lift","_cargo_pos","_rel_pos","_cargo_x","_cargo_y","_cargo_z","_obj_img","_hud_x","_hud_y","_hud_x_1","_hud_y_1","_pic_cargo","_obj_name","_name_cargo","_arrow_down","_arrow_up","_arrow","_complete","_incomplete","_obj_pic","_obj_alt"];
@@ -14,7 +15,7 @@ _complete	= _this select 0 select 2;
 _incomplete	= _this select 0 select 3;
 _obj_img	= _this select 0 select 4;
 _obj_pic	= _this select 0 select 5;
-_arrow		= _this select 0 select 6;
+_arrow	= _this select 0 select 6;
 _obj_name	= _this select 0 select 7;
 _obj_alt	= _this select 0 select 8;
 
@@ -30,10 +31,10 @@ if (({_cargo isKindOf _x} count _array) > 0) then {_can_lift = true;} else {_can
 
 if (!isNull _cargo) then {
 	_cargo_pos = getPosATL _cargo;
-	_rel_pos   = (_chopper) worldToModel _cargo_pos;
+	_rel_pos   = _chopper worldToModel _cargo_pos;
 	_cargo_x   = _rel_pos select 0;
 	_cargo_y   = _rel_pos select 1;
-	_cargo_z   = _rel_pos select 2;
+	_cargo_z   = ((getPosATL _chopper) select 2) - (_cargo_pos select 2);
 	_obj_img ctrlShow true;
 	_hud_x   = _cargo_x / 100;
 	switch (true) do {

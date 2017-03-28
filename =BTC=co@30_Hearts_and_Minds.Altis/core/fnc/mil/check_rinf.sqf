@@ -24,6 +24,8 @@ _pos = [_pos, 0, 300, 13, 0, 60 * (pi / 180), 0] call BIS_fnc_findSafePos;
 if (count _pos == 0) then {_pos = getPos _city;};
 
 _hideout = [_pos] call btc_fnc_mil_create_hideout_composition;
+
+_hideout = nearestObject [_pos, "C_supplyCrate_F"];
 clearWeaponCargoGlobal _hideout;clearItemCargoGlobal _hideout;clearMagazineCargoGlobal _hideout;
 _hideout setVariable ["id",btc_hideouts_id];
 _hideout setVariable ["rinf_time",time];

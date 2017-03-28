@@ -1,4 +1,6 @@
 
+btc_gear_object addAction ["<t size='1.5' shadow='2' color='#ff1111'>Arsenal</t> <img size='3' color='#f4f2f1' shadow='2' image='\a3\ui_f\data\gui\rsc\rscdisplayarsenal\backpack_ca.paa'/>", "['Open',true] spawn BIS_fnc_arsenal;"];
+
 private ["_action"];
 
 //Database
@@ -17,6 +19,12 @@ _action = ["Search_intel", "Search for intel", "\A3\ui_f\data\igui\cfg\simpleTas
 _action = ["Interrogate_intel", "Interrogate", "\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\instructor_ca.paa", {[(_this select 0),true] spawn btc_fnc_info_ask;}, {(Alive (_this select 0) && {[(_this select 0)] call ace_common_fnc_isAwake} && captive (_this select 0))}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach (btc_type_units + btc_type_divers);
 
+//IEDs
+_action = ["Check_IED", "Check for IED", "\A3\ui_f\data\igui\cfg\simpleTasks\types\search_ca.paa", {(_this select 0) spawn btc_fnc_ied_check_for;}, {true}] call ace_interact_menu_fnc_createAction;
+{[_x, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_type_ieds;
+_action = ["Disarm_IED", "Disarm IED", "\z\ace\addons\explosives\UI\Defuse_ca.paa", {(_this select 0) spawn btc_fnc_ied_disarm;}, {((_this select 0) getVariable ["active",false] && {"ACE_DefusalKit" in items player})}] call ace_interact_menu_fnc_createAction;
+{[_x, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_type_ieds;
+
 //Log point
 _action = ["Logistic","Logistic","\A3\ui_f\data\igui\cfg\simpleTasks\letters\L_ca.paa",{},{true}] call ace_interact_menu_fnc_createAction;
 [btc_create_object, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;
@@ -28,9 +36,9 @@ _action = ["Repair_wreck", "Repair wreck", "\A3\ui_f\data\igui\cfg\simpleTasks\t
 //Logistic
 _action = ["Logistic","Logistic","\A3\ui_f\data\igui\cfg\simpleTasks\letters\L_ca.paa",{},{true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_log_def_loadable;
-_action = ["Load_in", "Load in", "\z\ace\addons\cargo\UI\Icon_load.paa", {(_this select 0) call btc_fnc_log_select;}, {true}] call ace_interact_menu_fnc_createAction;
+_action = ["Load_in", "Load in", "", {(_this select 0) call btc_fnc_log_select;}, {true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions","Logistic"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_log_def_loadable;
-_action = ["Load_selected", "Load selected", "\z\ace\addons\cargo\UI\Icon_load.paa", {(_this select 0) spawn btc_fnc_log_load;}, {!isNull btc_log_object_selected && {btc_log_object_selected distance (_this select 0) <= btc_log_max_distance_load}}] call ace_interact_menu_fnc_createAction;
+_action = ["Load_selected", "Load selected", "", {(_this select 0) spawn btc_fnc_log_load;}, {!isNull btc_log_object_selected && {btc_log_object_selected distance (_this select 0) <= btc_log_max_distance_load}}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions","Logistic"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_log_def_can_load;
 _action = ["check_cargo", "Check cargo", "\A3\ui_f\data\igui\cfg\simpleTasks\types\search_ca.paa", {(_this select 0) spawn btc_fnc_log_check_cargo;}, {true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions","Logistic"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_log_def_can_load;
@@ -54,21 +62,24 @@ _action = ["Civil_Get_down","Get down","\A3\ui_f\data\igui\cfg\simpleTasks\types
 _action = ["Civil_Go_away","Go away","\A3\ui_f\data\igui\cfg\simpleTasks\types\talk_ca.paa",{[3] call btc_fnc_int_orders;},{(vehicle player isEqualTo player)}] call ace_interact_menu_fnc_createAction;
 [player, 1, ["ACE_SelfActions","Civil_Orders"], _action] call ace_interact_menu_fnc_addActionToObject;
 
-
 _action = ["Civil_Orders","Civil Orders","\A3\ui_f\data\igui\cfg\simpleTasks\types\meet_ca.paa",{},{true}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_civ_type_units;
+["Civilian", 0, ["ACE_MainActions"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 _action = ["Civil_Stop", "Stop", "\A3\ui_f\data\igui\cfg\simpleTasks\types\talk_ca.paa", {[1,(_this select 0)] call btc_fnc_int_orders;}, {Alive (_this select 0)}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions","Civil_Orders"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_civ_type_units;
+["Civilian", 0, ["ACE_MainActions","Civil_Orders"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 _action = ["Civil_Get_down", "Get down", "\A3\ui_f\data\igui\cfg\simpleTasks\types\talk_ca.paa", {[2,(_this select 0)] call btc_fnc_int_orders;}, {Alive (_this select 0)}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions","Civil_Orders"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_civ_type_units;
+["Civilian", 0, ["ACE_MainActions","Civil_Orders"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 _action = ["Civil_taxi", "Taxi", "\A3\ui_f\data\igui\cfg\simpleTasks\types\talk_ca.paa", {[4,(_this select 0)] spawn btc_fnc_int_orders;}, {((Alive (_this select 0)) && !((vehicle (_this select 0)) isEqualTo (_this select 0)))}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions","Civil_Orders"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_civ_type_units;
+["Civilian", 0, ["ACE_MainActions","Civil_Orders"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 _action = ["Civil_Go_away", "Go away", "\A3\ui_f\data\igui\cfg\simpleTasks\types\talk_ca.paa", {[3,(_this select 0)] call btc_fnc_int_orders;}, {Alive (_this select 0)}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions","Civil_Orders"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_civ_type_units;
+["Civilian", 0, ["ACE_MainActions","Civil_Orders"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 _action = ["Ask_Info", "Ask info", "\A3\ui_f\data\igui\cfg\simpleTasks\types\talk_ca.paa", {[(_this select 0),false] spawn btc_fnc_info_ask;}, {Alive (_this select 0) && {[(_this select 0)] call ace_common_fnc_isAwake} && {side (_this select 0) isEqualTo civilian}}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_civ_type_units;
+["Civilian", 0, ["ACE_MainActions"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 _action = ["Ask_Reputation", "Ask Reputation", "\A3\ui_f\data\igui\cfg\simpleTasks\types\talk_ca.paa", {[(_this select 0)] spawn btc_fnc_info_ask_reputation;}, {Alive (_this select 0) && {[(_this select 0)] call ace_common_fnc_isAwake} && {side (_this select 0) isEqualTo civilian}}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_civ_type_units;
+["Civilian", 0, ["ACE_MainActions"], _action, true] call ace_interact_menu_fnc_addActionToClass;
+
+//Re-deploy
+_action = ["fob_redeploy", "Re-deploy", "\A3\ui_f\data\igui\cfg\simpleTasks\types\run_ca.paa", {[] spawn btc_fnc_fob_redeploy}, {btc_p_redeploy}, {}, [], [0.4,0,0.4], 5] call ace_interact_menu_fnc_createAction;
+[btc_gear_object, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;
 
 //Side missions
 _action = ["side_mission","Side mission","\A3\ui_f\data\igui\cfg\simpleTasks\types\whiteboard_ca.paa",{},{!(isNil {player getVariable "side_mission"})}] call ace_interact_menu_fnc_createAction;
@@ -78,8 +89,3 @@ _action = ["side_mission","Abort","\A3\ui_f\data\igui\cfg\simpleTasks\types\exit
 [player, 1, ["ACE_SelfActions", "side_mission"], _action] call ace_interact_menu_fnc_addActionToObject;
 _action = ["side_mission","Request","\A3\ui_f\data\igui\cfg\simpleTasks\types\default_ca.paa",{[] spawn btc_fnc_side_request},{!(isNil {player getVariable "side_mission"}) && {!btc_side_assigned}}] call ace_interact_menu_fnc_createAction;
 [player, 1, ["ACE_SelfActions", "side_mission"], _action] call ace_interact_menu_fnc_addActionToObject;
-
-//Re-deploy
-_action = ["fob_redeploy", "Re-deploy", "\A3\ui_f\data\igui\cfg\simpleTasks\types\run_ca.paa", {[] spawn btc_fnc_fob_redeploy}, {btc_p_redeploy}, {}, [], [0.4,0,0.4], 5] call ace_interact_menu_fnc_createAction;
-[btc_gear_object, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;
-btc_gear_object addAction ["<t color='#ff1111'>Arsenal</t>", "['Open',true] spawn BIS_fnc_arsenal;"];

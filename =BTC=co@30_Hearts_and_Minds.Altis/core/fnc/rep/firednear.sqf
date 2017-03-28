@@ -1,4 +1,3 @@
-
 private ["_civ","_gunner"];
 
 _civ = _this select 0;

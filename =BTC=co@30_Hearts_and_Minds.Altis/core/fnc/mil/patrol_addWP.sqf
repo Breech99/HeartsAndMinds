@@ -16,15 +16,14 @@ if ({_x distance _active_city < (_area/2) || _x distance leader _group < (_area/
 		(vehicle leader _group) call btc_fnc_mil_patrol_eh_remove;
 		deleteVehicle (vehicle leader _group);
 	};
-	{deleteVehicle _x;} foreach units _group;
-	[_group] call btc_fnc_deletegroup;
+	{deleteVehicle _x;} foreach units _group;deleteGroup _group;
 };
 
 //Sometimes the waypoints is completed but too far do to obstacle (water for island etc)
 if ((leader _group) distance _end_city > 300) then {
 	_noaccess pushBack _end_city;
 	_tmp_area = _area - ((leader _group) distance _end_city)*0.3*count _noaccess;
-	if (btc_debug) then {systemChat format ["Patrol ID: %1 , count %2, area %3", _group getVariable "btc_patrol_id", count _noaccess, _tmp_area];};
+	if (btc_debug) then {systemChat format ["Patrol ID %1 , count %2, area %3", _group getVariable "btc_patrol_id", count _noaccess, _tmp_area];};
 } else {
 	_tmp_area = _area;
 	_noaccess = [];
