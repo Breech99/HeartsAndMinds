@@ -1,4 +1,5 @@
 
+
 private ["_pos","_random_area","_return_pos","_pos_x","_pos_y","_check_pos","_allowwater"];
 
 _pos = _this select 0;

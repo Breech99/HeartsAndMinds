@@ -12,14 +12,10 @@ _cities_status = profileNamespace getVariable [format ["btc_hm_%1_cities",_name]
 {
 /*
 	_city_status pushBack (_x getVariable "id");
-
 	_city_status pushBack (_x getVariable "initialized");
-
 	_city_status pushBack (_x getVariable "spawn_more");
 	_city_status pushBack (_x getVariable "occupied");
-
 	_city_status pushBack (_x getVariable "data_units");
-
 	_city_status pushBack (_x getVariable ["has_ho",false]);
 	_city_status pushBack (_x getVariable ["ho_units_spawned",false]);
 	_city_status pushBack (_x getVariable ["ieds",[]]);
@@ -56,7 +52,6 @@ _cities_status = profileNamespace getVariable [format ["btc_hm_%1_cities",_name]
 	_data pushBack (_x getVariable ["rinf_time",0]);
 	_data pushBack (_x getVariable ["cap_time",0]);
 	_data pushBack (_x getVariable ["assigned_to",objNull]);
-
 	_cache_markers = [];
 	{
 		_data = [];
@@ -75,6 +70,7 @@ _array_ho = profileNamespace getVariable [format ["btc_hm_%1_ho",_name],[]];
 	_city = btc_city_all select _id;
 
 	_hideout = [_pos] call btc_fnc_mil_create_hideout_composition;
+
 	clearWeaponCargoGlobal _hideout;clearItemCargoGlobal _hideout;clearMagazineCargoGlobal _hideout;
 
 	_city setpos _pos;
@@ -138,7 +134,10 @@ btc_cache_pos = _array_cache select 0;
 btc_cache_n = _array_cache select 1;
 btc_cache_info = _array_cache select 2;
 
-call btc_fnc_cache_create;
+btc_cache_obj = btc_cache_type createVehicle btc_cache_pos;
+btc_cache_obj setPosATL (_array_cache select 0);
+clearWeaponCargoGlobal btc_cache_obj;clearItemCargoGlobal btc_cache_obj;clearMagazineCargoGlobal btc_cache_obj;
+btc_cache_obj addEventHandler ["HandleDamage", btc_fnc_cache_hd_cache];
 
 {
 	private ["_marker"];
@@ -147,8 +146,19 @@ call btc_fnc_cache_create;
 	_marker setMarkerText (_x select 1);
 	_marker setMarkerSize [0.5, 0.5];
 	_marker setMarkerColor "ColorRed";
-	btc_cache_markers pushBack _marker;
+	btc_cache_markers = btc_cache_markers + [_marker];
 } foreach (_array_cache select 3);
+
+if (btc_debug_log) then {diag_log format ["CACHE SPAWNED: ID %1 POS %2",btc_cache_n,btc_cache_pos];};
+
+if (btc_debug) then {
+	systemChat format ["Cache spawned in %1",btc_cache_pos];
+	//Marker
+	createmarker [format ["%1", btc_cache_pos], btc_cache_pos];
+	format ["%1", btc_cache_pos] setmarkertype "mil_unknown";
+	format ["%1", btc_cache_pos] setMarkerText format ["Cache %1", btc_cache_n];
+	format ["%1", btc_cache_pos] setMarkerSize [0.8, 0.8];
+};
 
 //REP
 btc_global_reputation = profileNamespace getVariable [format ["btc_hm_%1_rep",_name],0];
@@ -199,7 +209,7 @@ diag_log format ["5: %1",(_x select 5)];
 {
 	private ["_veh","_cont","_weap","_mags","_items"];
 	_veh = (_x select 0) createVehicle (_x select 1);
-	_veh setPosASL (_x select 1);
+	_veh setPos (_x select 1);
 	_veh setDir (_x select 2);
 	if ((getPos _veh) select 2 < 0) then {_veh setVectorUp surfaceNormal position _veh;};
 	_veh setFuel (_x select 3);
