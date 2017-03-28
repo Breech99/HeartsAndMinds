@@ -23,10 +23,10 @@ if ({_x distance _active_city < (_area/2) || _x distance leader _group < (_area/
 if ((leader _group) distance _end_city > 300) then {
 	_noaccess pushBack _end_city;
 	_tmp_area = _area - ((leader _group) distance _end_city) * 0.3 * count _noaccess;
-	if (btc_debug) then {systemChat format ["Traffic ID: %1 , count %2, tmp_area %3", _group getVariable "btc_traffic_id", count _noaccess, _tmp_area];};
+	if (btc_debug) then {systemChat format ["Traffic ID %1 , count %2, tmp_area %3", _group getVariable "btc_traffic_id", count _noaccess, _tmp_area];};
 } else {
 	_tmp_area = _area;
-	_noaccess = [];
+	_noaccess= [];
 };
 
 //Find a useful end city from the start city depending of vehicle type

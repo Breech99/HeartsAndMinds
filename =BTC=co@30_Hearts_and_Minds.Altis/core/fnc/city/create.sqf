@@ -1,4 +1,3 @@
-
 private ["_position","_type","_name","_radius_x","_radius_y","_has_en","_id","_city","_trigger"];
 
 _position = _this select 0;

@@ -83,7 +83,7 @@ if (count _data_units > 0) then {
 			case "Airport" : {1.5};
 			default {1};
 			});
-		_n = 3 * _factor;
+		_n = 3 * _factor; // can tweak number of civilian depends on type and factor, default = 3*
 		[_city,(_radius/3),_n] call btc_fnc_civ_populate;
 	};
 };
@@ -114,19 +114,27 @@ if (_has_ho && {!(_city getVariable ["ho_units_spawned",false])}) then {
 	_city setVariable ["ho_units_spawned",true];
 	//_pos = _city getVariable ["ho_pos",getPos _city];ho
 	_pos = _city getVariable ["ho_pos", getpos _city];
+	[[(_pos select 0) + 10,(_pos select 1) + 10,0]] execVM "core\fnc\mil\create_motorized.sqf";
 	[_pos,20,(10 + random 6),0.8] call btc_fnc_mil_create_group;
 	[_pos,120,(1 + random 2),0.5] call btc_fnc_mil_create_group;
 	[_pos,120,(1 + random 2),0.5] call btc_fnc_mil_create_group;
 	_random = (random 1);
 	switch (true) do {
-		case (_random < 0.3) : {};
+		case (_random < 0.3) : {
+			[[(_pos select 0) - 10,(_pos select 1) + 10,0]] execVM "core\fnc\mil\create_motorized.sqf";
+		};
 		case (_random > 0.3) : {
+			[[(_pos select 0) - 10,(_pos select 1) + 10,0]] execVM "core\fnc\mil\create_motorized.sqf";
+                  [[(_pos select 0) - 10,(_pos select 1) - 10,0]] execVM "core\fnc\mil\create_motorized.sqf";
 			private ["_statics"];
 			_statics = btc_type_gl + btc_type_mg;
 			//format position
 			[[(_pos select 0) + 7,(_pos select 1) + 7,0],_statics,45] call btc_fnc_mil_create_static;
 		};
 		case (_random > 0.75) : {
+			[[(_pos select 0) - 10,(_pos select 1) + 10,0]] execVM "core\fnc\mil\create_motorized.sqf";
+			[[(_pos select 0) - 10,(_pos select 1) - 10,0]] execVM "core\fnc\mil\create_motorized.sqf";
+                  [[(_pos select 0) + 10,(_pos select 1) - 10,0]] execVM "core\fnc\mil\create_motorized.sqf";
 			private ["_statics"];
 			_statics = btc_type_gl + btc_type_mg;
 			[[(_pos select 0) + 7,(_pos select 1) + 7,0],_statics,45] call btc_fnc_mil_create_static;

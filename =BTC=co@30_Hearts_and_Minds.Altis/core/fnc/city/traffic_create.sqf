@@ -19,7 +19,11 @@ if (_useful isEqualTo []) then {
 	_pos = getPos(selectRandom _useful);
 };
 
-if ((_pos nearRoads 200) isEqualTo []) then {
+if (count (_pos nearRoads 200) > 0) then {
+	_Spos = getPos ((_pos nearRoads 200) select 0);
+	_pos_iswater = false;
+	_veh_type = selectRandom btc_civ_type_veh;
+} else {
 	_Spos = [_pos, 0, 500, 13, [0,1] select btc_p_sea, 60 * (pi / 180), 0] call BIS_fnc_findSafePos;
 	_Spos = [_Spos select 0, _Spos select 1, 0];
 	_pos_iswater = (surfaceIsWater _Spos);
@@ -28,15 +32,11 @@ if ((_pos nearRoads 200) isEqualTo []) then {
 	} else {
 		_veh_type = selectRandom btc_civ_type_veh;
 	};
-} else {
-	_Spos = getPos (selectRandom (_pos nearRoads 200));
-	_pos_iswater = false;
-	_veh_type = selectRandom btc_civ_type_veh;
 };
 
 _veh = createVehicle [_veh_type, _Spos, [], 0, "FLY"];
 
-_group = createGroup [civilian, true];
+_group = createGroup civilian;
 (selectRandom btc_civ_type_units) createUnit [_Spos, _group, "this moveinDriver _veh; this assignAsDriver _veh;"];
 _group setVariable ["no_cache",true];
 _group setVariable ["btc_patrol",true];
@@ -44,7 +44,7 @@ _group setVariable ["btc_traffic_id",btc_traffic_id,btc_debug];btc_traffic_id = 
 _group setVariable ["city",_city];
 btc_civ_veh_active pushBack _group;
 
-_veh setVariable ["driver", _group];
+_veh setVariable ["driver", leader _group];
 
 {_x call btc_fnc_civ_unit_create;_x setVariable ["traffic",_veh];} foreach units _group;
 
