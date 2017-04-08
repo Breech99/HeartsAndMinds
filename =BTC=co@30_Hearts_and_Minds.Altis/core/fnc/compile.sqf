@@ -23,6 +23,7 @@ if (isServer) then {
 	btc_fnc_set_groupowner = compile preprocessFile "core\fnc\common\set_groupowner.sqf";
 	btc_fnc_find_closecity = compile preprocessFile "core\fnc\common\find_closecity.sqf";
 	btc_fnc_deletegroup = compile preprocessFile "core\fnc\common\deletegroup.sqf";
+	btc_fnc_delete = compile preprocessFile "core\fnc\common\delete.sqf";
 
 	//CITY
 	btc_fnc_city_activate = compile preprocessFile "core\fnc\city\activate.sqf";
@@ -58,6 +59,8 @@ if (isServer) then {
 	btc_fnc_eh_veh_add_respawn = compile preprocessFile "core\fnc\eh\veh_add_respawn.sqf";
 	btc_fnc_eh_veh_killed = compile preprocessFile "core\fnc\eh\veh_killed.sqf";
 	btc_fnc_eh_veh_respawn = compile preprocessFile "core\fnc\eh\veh_respawn.sqf";
+	btc_fnc_eh_explosives_defuse = compile preprocessFile "core\fnc\eh\explosives_defuse.sqf";
+	btc_fnc_eh_handledisconnect = compile preprocessFile "core\fnc\eh\handledisconnect.sqf";
 
 	//IED
 	btc_fnc_ied_boom = compile preprocessFile "core\fnc\ied\boom.sqf";
@@ -122,6 +125,7 @@ if (isServer) then {
 	btc_fnc_side_rescue = compile preprocessFileLineNumbers "core\fnc\side\rescue.sqf";
 	btc_fnc_side_capture_officer = compile preprocessFileLineNumbers "core\fnc\side\capture_officer.sqf";
 	btc_fnc_side_hostage = compile preprocessFileLineNumbers "core\fnc\side\hostage.sqf";
+	btc_fnc_side_hack = compile preprocessFileLineNumbers "core\fnc\side\hack.sqf";
 
 	//LOG
 	btc_fnc_log_getconfigmagazines = compile preprocessFile "core\fnc\log\getconfigmagazines.sqf";
