@@ -11,27 +11,20 @@ if (btc_db_load && {profileNamespace getVariable [format ["btc_hm_%1_db",worldNa
 } else {
 	for "_i" from 1 to btc_hideout_n do {[] call btc_fnc_mil_create_hideout;};
 
-	setTimeMultiplier btc_p_acctime;
+	private _date = date;
+	_date set [3, btc_p_time];
+	setDate _date;
 
 	[] execVM "core\fnc\cache\init.sqf";
 
 	[] spawn {{waitUntil {!isNull _x}; _x call btc_fnc_db_add_veh;} foreach btc_vehicles;};
 };
 
+call btc_fnc_db_autosave;
 
-addMissionEventHandler ["HandleDisconnect",{
-	deleteVehicle (_this select 0);
-	
-	};
-}];
+addMissionEventHandler ["HandleDisconnect",btc_fnc_eh_handledisconnect];
 
-["ace_explosives_defuse", {
-	params ["_ied", "_unit"];
-	private _type_ied = typeOf _ied;
-	if ((_type_ied select [0, _type_ied find "_"]) in (btc_type_ieds_ace apply {_x select [0, _x find "_"]})) then {
-		btc_rep_bonus_disarm call btc_fnc_rep_change;
-	};
-}] call CBA_fnc_addEventHandler;
+["ace_explosives_defuse", btc_fnc_eh_explosives_defuse] call CBA_fnc_addEventHandler;
 
 ["Initialize"] call BIS_fnc_dynamicGroups;
 
