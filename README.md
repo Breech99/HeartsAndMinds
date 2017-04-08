@@ -1,5 +1,5 @@
 # HeartsAndMinds
-1.16.2 
+1.17 
 Hearts and Minds 2 Main Base Version
 
 Uses Main Tanoa Airport as Blufor base with safezone over base
