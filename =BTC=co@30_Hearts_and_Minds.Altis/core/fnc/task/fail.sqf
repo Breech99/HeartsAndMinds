@@ -56,6 +56,7 @@ switch _this do
 	case 15 :
 	{
 		_description = ["Side mission failed!","The hostage has not been liberated"];
+	};
 	case 16 :
 	{
 		_description = ["Side mission failed!","The missile has not been hacked"];
