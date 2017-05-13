@@ -150,6 +150,23 @@ if (isServer) then {
 	//Vehs
 	btc_vehicles = [btc_veh_1,btc_veh_2,btc_veh_3,btc_veh_4,btc_veh_5,btc_veh_6,btc_veh_7,btc_veh_8,btc_veh_9,btc_veh_10,btc_veh_11,btc_veh_12,btc_veh_13,btc_veh_14,btc_veh_15,btc_veh_16,btc_veh_17,btc_veh_18,btc_veh_19,btc_veh_20,btc_veh_21,btc_veh_22,btc_veh_23,btc_veh_24,btc_veh_25];
 	btc_helo = [btc_helo_1,btc_helo_2,btc_helo_3,btc_helo_5,btc_helo_6,btc_helo_7,btc_helo_8,btc_helo_9,btc_helo_10];
+	
+	// Prefixes of buildings and their multiplier. This will multiply the values of btc_rep_malus_building_destroyed
+	// and btc_rep_malus_building_damaged, if a building is not present here it will be multiplied by 1.0.
+	// Use 0.0 to disable reputation hit on a specific's building destruction.
+	// This will also be applied left-to-right, so if you differentiate between i.e. "Land_Chapel" and "Land_Chapel_Small"
+	// then place the more specific prefix first.
+	// You can modify this for any other terrain, clearing the table will also make all buildings just have a 1.0 multiplier.
+	btc_buildings_multipliers = [ ["Land_BellTower", 0.2 ], ["Land_Chapel_Small", 2.5], ["Land_Chapel", 3.0],
+	["Land_Lighthouse_small", 2.5], [ "Land_LightHouse", 4.0 ], ["Land_WIP", 1.5], ["Land_u_Addon_01", 0.2],
+	["Land_Metal_Shed", 0.5], ["Land_i_House_Big", 1.5], ["Land_u_House_Big", 1.5], ["Land_d_House_Big", 1.5],
+	["Land_i_Shop", 1.5], ["Land_u_Shop", 1.5], ["Land_d_Shop", 1.5], ["Land_Slum", 0.8],
+	["Land_i_Stone_HouseBig", 1.5], ["Land_d_Stone_HouseBig", 1.5], ["Land_Airport_Tower", 10.0],
+	["Land_Hangar", 7.0], ["Land_cmp_Hopper", 4.0], ["Land_cmp_Tower", 4.0], ["Land_dp_smallTank", 3.0],
+	["Land_Factory_Conv", 2.0], ["Land_Factory_Hopper", 4.0], ["Land_Factory_Main", 6.0], ["Land_FuelStation_Shed", 2.0],
+	["Land_ReservoirTank", 3.0], ["Land_Shed", 0.2], ["Land_i_Shed_Ind", 1.5], ["Land_u_Shed_Ind", 1.5],
+	["Land_spp_Tower", 7.0], ["Land_spp_Transformer", 3.0], ["Land_TTowerBig", 6.0], ["Land_TTowerSmall", 4.5],
+	["Land_i_Barracks", 1.75], ["Land_u_Barracks", 1.75] ];
 };
 
 //City
@@ -648,6 +665,8 @@ btc_rep_malus_civ_killed = - 10;
 btc_rep_malus_civ_firenear = - 5;
 btc_rep_malus_player_respawn = - 10;
 btc_rep_malus_veh_killed = - 25;
+btc_rep_malus_building_damaged = - 5;
+btc_rep_malus_building_destroyed = - 10;
 
 //Side
 if (isNil "btc_side_assigned") then {btc_side_assigned = false;};
