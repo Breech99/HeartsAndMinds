@@ -55,6 +55,8 @@ added:
 
 @USAF
 
+@F18 hornet pack by tetet
+
 ---------------------------optional client side mods:
 
 
