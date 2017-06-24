@@ -6,4 +6,5 @@ class CfgFunctions {
             };
         };
     };
+	#include "..\..\CHVD\CfgFunctions.hpp"
 };  
