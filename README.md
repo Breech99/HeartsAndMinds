@@ -1,6 +1,6 @@
 # HeartsAndMinds
 1.17 
-Hearts and Minds 2 Main Base Version
+-----Hearts and Minds 2 ----Bluefor Main Base Version
 
 Uses Main Tanoa Airport as Blufor base with safezone over base - using carrier for additional aircraft
 
