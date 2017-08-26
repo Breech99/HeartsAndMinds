@@ -3,6 +3,7 @@
 Hearts and Minds 2 Main Base Version
 
 Uses Main Tanoa Airport as Blufor base with safezone over base - using carrier for additional aircraft
+
 Malden version uses main Airport as Bluefor base with carrier in ocean with safezone over base.
 
 Added Features:
