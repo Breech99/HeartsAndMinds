@@ -33,7 +33,7 @@ added:
 
 -MELB little birds
 
--USAF C17 transport
+-USAF C17 transport  ****Not used until USAF mod updates late 2QTR 2017
 
 -tanks
 
