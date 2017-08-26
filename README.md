@@ -33,7 +33,7 @@ added:
 
 -MELB little birds
 
--USAF C17 transport  ****Not used until USAF mod updates late 2QTR 2017
+-USAF C17 transport     ****Not used until USAF mod updates late 2QTR 2017
 
 -tanks
 
@@ -55,7 +55,7 @@ added:
 
 @MELB mission enhanced little birds
 
-@USAF
+@USAF       ****Not used until USAF mod updates late 2QTR 2017
 
 @F18 hornet pack by tetet
 
@@ -66,3 +66,4 @@ added:
 
 @advanced urban rappeling
 
+@TFAR radios
