@@ -1,11 +1,9 @@
 
-btc_gear_object addAction ["<t size='1.5' shadow='2' color='#ff1111'>Arsenal</t> <img size='3' color='#f4f2f1' shadow='2' image='\a3\ui_f\data\gui\rsc\rscdisplayarsenal\backpack_ca.paa'/>", "['Open',true] spawn BIS_fnc_arsenal;"];
-
 private ["_action"];
 
 //Database
 //_action = ["Database","Database","",{},{serverCommandAvailable "#logout"}] call ace_interact_menu_fnc_createAction;
-_action = ["Database","Database","",{},{serverCommandAvailable "#logout" || !isMultiplayer}] call ace_interact_menu_fnc_createAction;
+_action = ["Database","Database","\A3\ui_f\data\igui\cfg\simpleTasks\letters\D_ca.paa",{},{serverCommandAvailable "#logout" || !isMultiplayer}] call ace_interact_menu_fnc_createAction;
 [player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject;
 
 _action = ["request_save","Save","\A3\ui_f\data\igui\cfg\simpleTasks\types\download_ca.paa",{call btc_fnc_db_request_save;},{true}] call ace_interact_menu_fnc_createAction;
@@ -19,12 +17,6 @@ _action = ["Search_intel", "Search for intel", "\A3\ui_f\data\igui\cfg\simpleTas
 _action = ["Interrogate_intel", "Interrogate", "\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\instructor_ca.paa", {[(_this select 0),true] spawn btc_fnc_info_ask;}, {(Alive (_this select 0) && {[(_this select 0)] call ace_common_fnc_isAwake} && captive (_this select 0))}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach (btc_type_units + btc_type_divers);
 
-//IEDs
-_action = ["Check_IED", "Check for IED", "\A3\ui_f\data\igui\cfg\simpleTasks\types\search_ca.paa", {(_this select 0) spawn btc_fnc_ied_check_for;}, {true}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_type_ieds;
-_action = ["Disarm_IED", "Disarm IED", "\z\ace\addons\explosives\UI\Defuse_ca.paa", {(_this select 0) spawn btc_fnc_ied_disarm;}, {((_this select 0) getVariable ["active",false] && {"ACE_DefusalKit" in items player})}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_type_ieds;
-
 //Log point
 _action = ["Logistic","Logistic","\A3\ui_f\data\igui\cfg\simpleTasks\letters\L_ca.paa",{},{true}] call ace_interact_menu_fnc_createAction;
 [btc_create_object, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;
@@ -32,13 +24,22 @@ _action = ["Require_object", "Require object", "\A3\ui_f\data\igui\cfg\simpleTas
 [btc_create_object, 0, ["ACE_MainActions","Logistic"], _action] call ace_interact_menu_fnc_addActionToObject;
 _action = ["Repair_wreck", "Repair wreck", "\A3\ui_f\data\igui\cfg\simpleTasks\types\repair_ca.paa", {[btc_create_object_point] spawn btc_fnc_log_repair_wreck}, {true}, {}, [], [0,0,0], 5] call ace_interact_menu_fnc_createAction;
 [btc_create_object, 0, ["ACE_MainActions","Logistic"], _action] call ace_interact_menu_fnc_addActionToObject;
+_action = ["Require_veh", "Require vehicle", "\A3\ui_f\data\map\vehicleicons\iconCar_ca.paa", {[btc_create_object_point] spawn btc_fnc_log_garage}, {(serverCommandAvailable "#logout" || !isMultiplayer) and btc_p_garage}, {}, [], [0,0,0], 5] call ace_interact_menu_fnc_createAction;
+[btc_create_object, 0, ["ACE_MainActions","Logistic"], _action] call ace_interact_menu_fnc_addActionToObject;
+_action = ["Tool","Tool","\A3\ui_f\data\igui\cfg\simpleTasks\letters\T_ca.paa",{},{true}] call ace_interact_menu_fnc_createAction;
+[btc_create_object, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;
+_action = ["Copy", "Copy container", "\A3\ui_f\data\igui\cfg\simpleTasks\types\download_ca.paa", {[btc_create_object_point] spawn btc_fnc_log_copy}, {true}, {}, [], [0,0,0.4], 5] call ace_interact_menu_fnc_createAction;
+[btc_create_object, 0, ["ACE_MainActions","Tool"], _action] call ace_interact_menu_fnc_addActionToObject;
+_action = ["Paste", "Paste container", "\A3\ui_f\data\igui\cfg\simpleTasks\types\upload_ca.paa", {[btc_copy_container, btc_create_object_point] call btc_fnc_log_paste}, {!isNil "btc_copy_container"}, {}, [], [0,0,0.4], 5] call ace_interact_menu_fnc_createAction;
+[btc_create_object, 0, ["ACE_MainActions","Tool"], _action] call ace_interact_menu_fnc_addActionToObject;
+
 
 //Logistic
 _action = ["Logistic","Logistic","\A3\ui_f\data\igui\cfg\simpleTasks\letters\L_ca.paa",{},{true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_log_def_loadable;
-_action = ["Load_in", "Load in", "", {(_this select 0) call btc_fnc_log_select;}, {true}] call ace_interact_menu_fnc_createAction;
+_action = ["Load_in", "Load in", "\z\ace\addons\cargo\UI\Icon_load.paa", {(_this select 0) call btc_fnc_log_select;}, {true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions","Logistic"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_log_def_loadable;
-_action = ["Load_selected", "Load selected", "", {(_this select 0) spawn btc_fnc_log_load;}, {!isNull btc_log_object_selected && {btc_log_object_selected distance (_this select 0) <= btc_log_max_distance_load}}] call ace_interact_menu_fnc_createAction;
+_action = ["Load_selected", "Load selected", "\z\ace\addons\cargo\UI\Icon_load.paa", {(_this select 0) spawn btc_fnc_log_load;}, {!isNull btc_log_object_selected && {btc_log_object_selected distance (_this select 0) <= btc_log_max_distance_load}}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions","Logistic"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_log_def_can_load;
 _action = ["check_cargo", "Check cargo", "\A3\ui_f\data\igui\cfg\simpleTasks\types\search_ca.paa", {(_this select 0) spawn btc_fnc_log_check_cargo;}, {true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions","Logistic"], _action] call ace_interact_menu_fnc_addActionToClass;} foreach btc_log_def_can_load;
@@ -77,10 +78,6 @@ _action = ["Ask_Info", "Ask info", "\A3\ui_f\data\igui\cfg\simpleTasks\types\tal
 _action = ["Ask_Reputation", "Ask Reputation", "\A3\ui_f\data\igui\cfg\simpleTasks\types\talk_ca.paa", {[(_this select 0)] spawn btc_fnc_info_ask_reputation;}, {Alive (_this select 0) && {[(_this select 0)] call ace_common_fnc_isAwake} && {side (_this select 0) isEqualTo civilian}}] call ace_interact_menu_fnc_createAction;
 ["Civilian", 0, ["ACE_MainActions"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 
-//Re-deploy
-_action = ["fob_redeploy", "Re-deploy", "\A3\ui_f\data\igui\cfg\simpleTasks\types\run_ca.paa", {[] spawn btc_fnc_fob_redeploy}, {btc_p_redeploy}, {}, [], [0.4,0,0.4], 5] call ace_interact_menu_fnc_createAction;
-[btc_gear_object, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;
-
 //Side missions
 _action = ["side_mission","Side mission","\A3\ui_f\data\igui\cfg\simpleTasks\types\whiteboard_ca.paa",{},{!(isNil {player getVariable "side_mission"})}] call ace_interact_menu_fnc_createAction;
 [player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject;
@@ -89,3 +86,8 @@ _action = ["side_mission","Abort","\A3\ui_f\data\igui\cfg\simpleTasks\types\exit
 [player, 1, ["ACE_SelfActions", "side_mission"], _action] call ace_interact_menu_fnc_addActionToObject;
 _action = ["side_mission","Request","\A3\ui_f\data\igui\cfg\simpleTasks\types\default_ca.paa",{[] spawn btc_fnc_side_request},{!(isNil {player getVariable "side_mission"}) && {!btc_side_assigned}}] call ace_interact_menu_fnc_createAction;
 [player, 1, ["ACE_SelfActions", "side_mission"], _action] call ace_interact_menu_fnc_addActionToObject;
+
+//Re-deploy
+_action = ["fob_redeploy", "Re-deploy", "\A3\ui_f\data\igui\cfg\simpleTasks\types\run_ca.paa", {[] spawn btc_fnc_fob_redeploy}, {btc_p_redeploy}, {}, [], [0.4,0,0.4], 5] call ace_interact_menu_fnc_createAction;
+[btc_gear_object, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;
+btc_gear_object addAction ["<t size='1.5' shadow='2' color='#ff1111'>Arsenal</t> <img size='3' color='#f4f2f1' shadow='2' image='\a3\ui_f\data\gui\rsc\rscdisplayarsenal\backpack_ca.paa'/>", "['Open',true] spawn BIS_fnc_arsenal;"];
