@@ -13,7 +13,7 @@ added:
 
 -Intro start with UAV cam and ANN report
 
--fnc halo jump at main base
+-fnc halo jump from Carrier
 
 -CHVD dynamic view distance script suite
 
